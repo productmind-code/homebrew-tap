@@ -34,8 +34,11 @@ cask "deslop-hook" do
   binary "deslop-hook"
 
   postflight do
-    if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
-      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/deslop-hook"]
+    # Only macOS has xattr; Homebrew quarantines cask downloads there and the
+    # binary is not notarized. Kernel#system never raises, so a missing
+    # attribute (brew install --no-quarantine) cannot fail the install.
+    if File.exist?("/usr/bin/xattr")
+      system "/usr/bin/xattr", "-dr", "com.apple.quarantine", "#{staged_path}/deslop-hook"
     end
   end
 
