@@ -2,26 +2,26 @@
 cask "productmind@beta" do
   binary "codeflow", target: "pm"
 
-  version "0.1.0-alpha.550"
+  version "0.1.0-alpha.552"
 
   on_macos do
     on_intel do
-      sha256 "421859e548395280b6b2ca7531ae404c2ae79a318bf70e42b5a3915f9e0947da"
+      sha256 "e65e4ce189633056ef61afe637511ce1e8243ffb00758ec08bb3d22fd6d42a4e"
       url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_darwin_amd64.tar.gz"
     end
     on_arm do
-      sha256 "18d9c610d9a1a38fb4627dca76adbc0092b6cae33e2bd9cedf006b87562fe275"
+      sha256 "88888169dda51d65f69fe5387e383e6e2647304707bba5521204243b7e0b6917"
       url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_darwin_arm64.tar.gz"
     end
   end
 
   on_linux do
     on_intel do
-      sha256 "1a26ce9cc90e777c28fb87af1c7a6c89cdf065c7938904c08bf658fc1f175120"
+      sha256 "d07ee376fc791c1e0e44761447f99ea520d9f2ab71f0b3314393db889f8dd4d0"
       url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_linux_amd64.tar.gz"
     end
     on_arm do
-      sha256 "4e76a3fee4fbf5dc176b5510598a7fb92731cd04eeee1f53ed3105cbcf8f9538"
+      sha256 "f5c477c3818f4a1deb0841ff1d3776f7fe665f5c1487d186bdf370ae405aae9e"
       url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_linux_arm64.tar.gz"
     end
   end
@@ -39,10 +39,10 @@ cask "productmind@beta" do
   binary "cf-attach"
 
   postflight do
-    if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
-      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/codeflow"]
-      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/cf-shell"]
-      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/cf-attach"]
+    if File.exist?("/usr/bin/xattr")
+      system "/usr/bin/xattr", "-dr", "com.apple.quarantine", "#{staged_path}/codeflow"
+      system "/usr/bin/xattr", "-dr", "com.apple.quarantine", "#{staged_path}/cf-shell"
+      system "/usr/bin/xattr", "-dr", "com.apple.quarantine", "#{staged_path}/cf-attach"
     end
   end
 
