@@ -2,26 +2,26 @@
 cask "productmind@beta" do
   binary "codeflow", target: "pm"
 
-  version "0.1.0-alpha.1033"
+  version "0.1.0-alpha.1035"
 
   on_macos do
     on_intel do
-      sha256 "985522eebfea4926825cc6320a0845c133e2da06b981faf790ffb24fc6d85486"
+      sha256 "04aa4ff3097863a4d2e474a036bbbf023e3348e1686775fc187090c04206f516"
       url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_darwin_amd64.tar.gz"
     end
     on_arm do
-      sha256 "8686b10d20c26a3ad94348fd368191bb08d1b3ffa8e521e9011607d39dc82c4e"
+      sha256 "1ca898ccebb61e50233ea761a105bc2537ba0806b7ff7e08508b9385e2890e18"
       url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_darwin_arm64.tar.gz"
     end
   end
 
   on_linux do
     on_intel do
-      sha256 "e04cc2279079c6c288221e31e236850145e80eaa44149875e40715276eb9f3cd"
+      sha256 "66c0cc8ff382581b24db2a0568be9de47675423666bce223c227297923ca4958"
       url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_linux_amd64.tar.gz"
     end
     on_arm do
-      sha256 "586d6c7ac470df95e05f5d37f826f07042753cc8df3e7a57e9bf4cfd959c1b33"
+      sha256 "685cc3760aae22ee73b636abecc656e91200592dd9a622454c3c05f7679f3827"
       url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_linux_arm64.tar.gz"
     end
   end
