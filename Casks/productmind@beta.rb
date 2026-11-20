@@ -2,27 +2,26 @@
 cask "productmind@beta" do
   binary "codeflow", target: "pm"
 
-  version "0.1.0-alpha.1101"
+  version "0.1.0-alpha.1105"
 
   on_macos do
-    on_intel do
-      sha256 "15ef773e673d29606d024418c8b4b81c38145867bbaaee5630d2fdcd1f65bbab"
-      url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_darwin_amd64.tar.gz"
-    end
     on_arm do
-      sha256 "73f1f4bbb3687e544365e55280ca6892a15d006e187b42606f8ad3e93e22f26f"
+      sha256 "57c34b39305790167cb2fc2c362e2f83681dbd26a553f2b190c5302e3be79101"
       url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_darwin_arm64.tar.gz"
     end
-  end
-
-  on_linux do
     on_intel do
-      sha256 "6a22d71bd227562b59b3b16944c8c7dcf4d5889c38a717db8759bd12333d02b5"
-      url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_linux_amd64.tar.gz"
+      sha256 "e966caafacce5a8e4d4911cbbc4f963ae22ddd17bd99c81e787ece641d85c3e2"
+      url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_darwin_amd64.tar.gz"
     end
+  end
+  on_linux do
     on_arm do
-      sha256 "a8397aa4934aa0b6c18b1555cbec0665706a8a4dbe30cb8ed65d750871a79311"
+      sha256 "c116e3a86a2e9e80f2a9801c5b0d70169a481a2e77bf48d34eb8d48a31fd6bae"
       url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_linux_arm64.tar.gz"
+    end
+    on_intel do
+      sha256 "32251479fa207737dd946a13efb61293c4054889b184071de204da7aec97cde8"
+      url "https://pkg.productmind.ai/beta/v#{version}/codeflow_#{version}_linux_amd64.tar.gz"
     end
   end
 
@@ -38,15 +37,15 @@ cask "productmind@beta" do
   binary "cf-shell"
   binary "cf-attach"
 
-  postflight do
-    if File.exist?("/usr/bin/xattr")
-      system "/usr/bin/xattr", "-dr", "com.apple.quarantine", "#{staged_path}/codeflow"
-      system "/usr/bin/xattr", "-dr", "com.apple.quarantine", "#{staged_path}/cf-shell"
-      system "/usr/bin/xattr", "-dr", "com.apple.quarantine", "#{staged_path}/cf-attach"
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/codeflow"], must_succeed: false
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/cf-shell"], must_succeed: false
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/cf-attach"], must_succeed: false
     end
   end
 
-  # No zap stanza required
+  zap :not_required
 
   caveats <<~EOS
     Run `pm init` for first-run setup, then `pm doctor` to verify your
